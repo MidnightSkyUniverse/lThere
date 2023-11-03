@@ -1,0 +1,55 @@
+project: lunchThere
+stage: dev
+
+model_name: 'gpt-3.5-turbo'
+embedding_model_name: 'all-MiniLM-L6-v2'
+#model_name: 'gpt-4'
+
+data:
+  dir: '../data/'
+  raw: 'raw.pkl'
+  fb_results: 'fb_scan_results.pkl'
+  locations: 'lunchThere - Locations.csv'
+  menus: 'lunchThere - Menus.csv'
+  new_locations: 'new - Locations.csv'
+  menus_dir: 'menus'
+
+
+prompts:
+  dir: 'prompts'
+  tag: 'tag_text.prompt'
+  extract_menu: 'extract_menu.prompt'
+
+chunk_size:
+  is_lunch: 400
+  extract_lunch: 1000
+
+
+coordinates:
+  Wroclaw:
+    NORTH: 51.15
+    SOUTH: 51.05
+    EAST: 17.10
+    WEST: 16.90
+
+db:
+  dir: 'database/'
+  file: search.db
+  schema: schema.sql
+  vector_db: 'chroma.db'
+
+
+TYPES_OF_PLACES: [
+    'Restauracja',
+    'Bar',
+    'Kuchnia',
+    'Pizzeria',
+    'Bistro',
+    'Pierogarnia',
+    'Naleśnikarnia',
+    'Jadłodajnia',
+    'Sushi',
+    'Kafeteria',
+    'Fish & chips',
+    'Gastropub',
+]

@@ -1,0 +1,2 @@
+Extract the relevant information, if not explicitly provided do not guess.
+Extract partial info. Return empty string if info not provided.
