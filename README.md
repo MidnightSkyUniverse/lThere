@@ -143,6 +143,12 @@ Class Meal os used to instruct OpenAI how to extract meal and price of each meal
 Menu is a list of meals found in one post
 
 
+## Chat with the data
+Chainlit is initiated from command line. Change director to lThere/chat and execute
+```commandline
+chainlit run chat.py -w
+```
+
 
 
 
