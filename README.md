@@ -121,7 +121,7 @@ That allows us easily to search for corresponding information that's relevant on
 ------------------------ | --------------------------------|
 | {'price': '22 zł', 'url': 'https://www.facebook.com/element4wroclaw'} | Pierogi ruskie ( 7 sztuk ) z okrasą |
 ---------------------------------------------------------------------------------------------------------------
-
+</br></br>
 
 ### About Data Classes
 
@@ -141,7 +141,7 @@ The class is used to instruct OpenAI how to tag posts with lunch menu
  **Class Meal & Menu**
 Class Meal os used to instruct OpenAI how to extract meal and price of each meal.
 Menu is a list of meals found in one post
-
+</br></br>
 
 ## Chat with the data
 Chainlit is initiated from command line. Change director to lThere/chat and execute
