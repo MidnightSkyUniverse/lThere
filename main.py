@@ -19,10 +19,10 @@ _steps = [
     # Uses SerpAPI to query results based on GPS coordinates, upload to DB
     # 'search_for_new_places',
 
-    # Extract FB with Apify, scrap posts, identify new places with lunch, save extracted lunch menu for processing
+    # Extract FB with Crawlbase, scrap posts, identify new places with lunch, save extracted lunch menu for processing
     # 'check_fb_of_new_places',
 
-    # Recheck pages that were scanned
+    # Recheck pages that were scanned but lunch menu was not found or scrapping returned no results
     # 'recheck_fb_pages'
 
     # collect daily menu, store records in chromaDB

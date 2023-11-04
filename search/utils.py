@@ -2,53 +2,47 @@
 Author: Ali Binkowska
 October 2023
 """
-from itertools import islice
-
+import json
+import re
+import os
+import logging
+from datetime import timedelta
 import numpy as np
 import tiktoken
 from dateutil import parser
 from dotenv import load_dotenv
 from joblib import dump, load
 from serpapi import GoogleSearch
-
-load_dotenv()
-
-from langchain.output_parsers.openai_functions import JsonKeyOutputFunctionsParser
-
+from itertools import islice
+from datetime import datetime
 from crawlbase import CrawlingAPI
-import json
-import re
-import os
-from datetime import timedelta
+from typing import Optional, Tuple, Dict, Any
+from typing import List
+from pydantic import BaseModel, Field
 
-load_dotenv()
-
-from class_utils import LocalResult, FBPost, LocalWithFB
-
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import (
+    RecursiveCharacterTextSplitter,
+)
+from chromadb.errors import InvalidDimensionException
+from langchain.utils.openai_functions import convert_pydantic_to_openai_function
+from langchain.output_parsers.openai_functions import JsonKeyOutputFunctionsParser
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 
-import logging
+from class_utils import (
+    LocalResult,
+    FBPost,
+    LocalWithFB
+)
+
+load_dotenv()
+
 logging.basicConfig(
     level=logging.INFO, format="(%(levelname)s):  %(message)s"
 )
 log = logging.getLogger()
-
-from typing import Optional, Tuple, Dict, Any
-from datetime import datetime
-
-from langchain.vectorstores import Chroma
-
-from langchain.text_splitter import (
-    RecursiveCharacterTextSplitter,
-)
-
-from chromadb.errors import InvalidDimensionException
-
-from typing import List
-from pydantic import BaseModel, Field
-from langchain.utils.openai_functions import convert_pydantic_to_openai_function
 
 
 with open('config.yaml', 'rb') as f:

@@ -5,14 +5,14 @@ model_name: 'gpt-3.5-turbo'
 embedding_model_name: 'all-MiniLM-L6-v2'
 #model_name: 'gpt-4'
 
-data:
-  dir: '../data/'
-  raw: 'raw.pkl'
-  fb_results: 'fb_scan_results.pkl'
-  locations: 'lunchThere - Locations.csv'
-  menus: 'lunchThere - Menus.csv'
-  new_locations: 'new - Locations.csv'
-  menus_dir: 'menus'
+#data:
+#  dir: '../data/'
+#  raw: 'raw.pkl'
+#  fb_results: 'fb_scan_results.pkl'
+#  locations: 'lunchThere - Locations.csv'
+#  menus: 'lunchThere - Menus.csv'
+#  new_locations: 'new - Locations.csv'
+#  menus_dir: 'menus'
 
 
 prompts:

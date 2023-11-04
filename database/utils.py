@@ -311,5 +311,4 @@ def drop_tables(db_name):
         cursor.execute("DROP TABLE IF EXISTS GpsCoordinates;")
         cursor.execute("DROP TABLE IF EXISTS LocalResults;")
         cursor.execute("DROP TABLE IF EXISTS FBPosts;")
-        cursor.execute("DROP TABLE IF EXISTS TemplateFBPosts;")
         cursor.execute("DROP TABLE IF EXISTS LunchSpecs;")
