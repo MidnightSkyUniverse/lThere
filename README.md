@@ -123,7 +123,7 @@ That allows us easily to search for corresponding information that's relevant on
 ---------------------------------------------------------------------------------------------------------------
 
 
-## About Data Classes
+### About Data Classes
 
  **Class LocalResult**
 Store data that are scrapped from Google. Most of the data would be used if the project grows beyond answering simple questions
