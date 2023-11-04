@@ -14,6 +14,8 @@ OpenAI and LangChain are used to process facebook data.
 - SerpAPI
 - ChromaDB
 - SQLite3
+</br></br>
+
 
 ## Getting started
 
@@ -25,8 +27,9 @@ OpenAI and LangChain are used to process facebook data.
 ```
 At the time of writing, langchain still worked with pycharm version 1.
 So I kept the software versions same as in my environment.
+</br></br>
 
-### Keys
+#### Keys
 File .env is not part of the repo. I have following keys defined and loaded with dotenv
 
 ```
@@ -36,14 +39,14 @@ CRAWLBASE_API_KEY='' # JavaScript key
 CRAWLBASE_API_KEY_2='' # Regular key to check usage
 ```
 
-### Configs
+#### Configs
 File config.yaml stores necessary configuration, including coordinates for
 the place I search for venues.
-
+</br></br>
 
 ### Code execution
 
-#### SQLite3 database
+#### Create SQLite3 database
 Script databae/manage_db.py can be used to create and drop local SQLIte database.
 Steps in the scrpt defines which action will be executed.
 ```
@@ -54,7 +57,7 @@ _steps= [
 ```
 To create database `schema.sql` is used.
 
-#### Scraping local venue details from Google using SerpAPI
+#### Scraping local venues details from Google using SerpAPI
 From now on `main.py` will be our center of command.
 
 ```commandline
@@ -77,33 +80,29 @@ Before executing 'search_for_new_places' update coordinates in `config.yaml`
 Please note there is a function called `clean_db_of_places` that uses polish keywords
 to remove all places captured by SerpAPI that does not offer food.
 So the search will resultes in around 400-500 records in database.
+</br></br>
 
 #### Scrap facebook pages that were collected by SerpAPI
-Unfortunately 10-15% of sites is captured with facebook pages 
-so this time the scraping will be much less extensive.
+Only 10-15% of sites is captured with facebook pages.
 
-So we attempt to scrap last post of each page that is selected scrapping.
-We select places that have facebook page stored in our database and have not been scraped yet.
+We select places that have facebook page stored in our database 
+and have not been scraped yet.
 
-In table LocalResults.processed I set value 1 if the place was processed once,
-and if lunch was not found on the post for ANY reason, I attempt to scan that
-page following day one more time.
+In table LocalResults.processed I set value 1 if the place was processed once.
 If the facebook has posts that are older than 14 days I set LocalResults.processed to 9 immediately
 
 Though the script is set to wait for page load, it's frequently that
-the data is not captured with first run so I design the script to run
-it again on the pages that were previously scanned.
+the data is not captured with first run.
 
-Results of scrap are passed thorugh OpenAI to decide whether 
-capture data represents lunch menu, and if yes, at what frequency the data is published
+Results of scrap are passed through OpenAI to tag those with lunch menu and frequency the data is published
+LocalResults.has_lunch_menu is a value that's set to 1 if, the lunch menu is present
 </br></br>
 
 #### Recheck the same facebook pages
-As set in the `main.py` file, this is the scame script that's exectued as in previous step.
-I set shorte hour window and this time set the LocalResults.processed to 2
-to makr the site was scanned twice.
-
-This step should be executed 24h after the step 2
+As set in the `main.py` file, this is the scame script that's executed as in previous step.
+It's used to second inspects sites that were not successful with first execution.
+Sites inspected twice ahve LocalResults.processed set to 2
+This step should be executed 24h after the previous step
 </br></br>
 
 
@@ -123,8 +122,6 @@ That allows us easily to search for corresponding information that's relevant on
 ------------------------ | --------------------------------|
 | {'price': '22 zł', 'url': 'https://www.facebook.com/element4wroclaw'} | Pierogi ruskie ( 7 sztuk ) z okrasą |
 ---------------------------------------------------------------------------------------------------------------
-
-
 
 
 
