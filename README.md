@@ -44,9 +44,8 @@ File config.yaml stores necessary configuration, including coordinates for
 the place I search for venues.
 </br></br>
 
-### Code execution
 
-#### Create SQLite3 database
+### Create SQLite3 database
 Script databae/manage_db.py can be used to create and drop local SQLIte database.
 Steps in the scrpt defines which action will be executed.
 ```
@@ -57,7 +56,7 @@ _steps= [
 ```
 To create database `schema.sql` is used.
 
-#### Scraping local venues details from Google using SerpAPI
+### Scraping local venues details from Google using SerpAPI
 From now on `main.py` will be our center of command.
 
 ```commandline
@@ -82,7 +81,7 @@ to remove all places captured by SerpAPI that does not offer food.
 So the search will resultes in around 400-500 records in database.
 </br></br>
 
-#### Scrap facebook pages that were collected by SerpAPI
+### Scrap facebook pages that were collected by SerpAPI
 Only 10-15% of sites is captured with facebook pages.
 
 We select places that have facebook page stored in our database 
@@ -98,7 +97,7 @@ Results of scrap are passed through OpenAI to tag those with lunch menu and freq
 LocalResults.has_lunch_menu is a value that's set to 1 if, the lunch menu is present
 </br></br>
 
-#### Recheck the same facebook pages
+### Recheck the same facebook pages
 As set in the `main.py` file, this is the scame script that's executed as in previous step.
 It's used to second inspects sites that were not successful with first execution.
 Sites inspected twice ahve LocalResults.processed set to 2
@@ -106,7 +105,7 @@ This step should be executed 24h after the previous step
 </br></br>
 
 
-#### Collect daily menu
+### Collect daily menu
 This script has one-time run over facebook pages of venues
 that have LocalResults.has_lunch_menu value set to 1
 
@@ -117,7 +116,7 @@ can be easily deleted with a crontab script.
 That allows us easily to search for corresponding information that's relevant only few hours.
 
 
-##### Example of a record from ChromaDB
+#### Example of a record from ChromaDB
 | metadatas | documents |
 ------------------------ | --------------------------------|
 | {'price': '22 zł', 'url': 'https://www.facebook.com/element4wroclaw'} | Pierogi ruskie ( 7 sztuk ) z okrasą |
