@@ -125,20 +125,20 @@ That allows us easily to search for corresponding information that's relevant on
 
 ## About Data Classes
 
-### Class LocalResult
+ **Class LocalResult**
 Store data that are scrapped from Google. Most of the data would be used if the project grows beyond answering simple questions
 
-### Class FBPost
+ **Class FBPost**
 At the very begining, Apify was used to scrap the data and this class is JSON representation of what data is scraped.
 Apify was replaced by cheaper Crawlbase which can scrap only text.
 
-### Class LocalWithFB
+ **Class LocalWithFB**
 I use that class to pass place_id, facebook url and a post scrapped from internet
 
-### Class Tagging
+ **Class Tagging**
 The class is used to instruct OpenAI how to tag posts with lunch menu
 
-### Class Meal & Menu
+ **Class Meal & Menu**
 Class Meal os used to instruct OpenAI how to extract meal and price of each meal.
 Menu is a list of meals found in one post
 
