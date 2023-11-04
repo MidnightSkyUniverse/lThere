@@ -85,7 +85,7 @@ so this time the scraping will be much less extensive.
 So we attempt to scrap last post of each page that is selected scrapping.
 We select places that have facebook page stored in our database and have not been scraped yet.
 
-In table LocalResults.processed I store value 1 if the place was processed once,
+In table LocalResults.processed I set value 1 if the place was processed once,
 and if lunch was not found on the post for ANY reason, I attempt to scan that
 page following day one more time.
 If the facebook has posts that are older than 14 days I set LocalResults.processed to 9 immediately
@@ -96,7 +96,7 @@ it again on the pages that were previously scanned.
 
 Results of scrap are passed thorugh OpenAI to decide whether 
 capture data represents lunch menu, and if yes, at what frequency the data is published
-
+</br></br>
 
 #### Recheck the same facebook pages
 As set in the `main.py` file, this is the scame script that's exectued as in previous step.
@@ -104,6 +104,8 @@ I set shorte hour window and this time set the LocalResults.processed to 2
 to makr the site was scanned twice.
 
 This step should be executed 24h after the step 2
+</br></br>
+
 
 #### Collect daily menu
 This script has one-time run over facebook pages of venues
@@ -111,8 +113,16 @@ that have LocalResults.has_lunch_menu value set to 1
 
 Results of scan are passed to OpenAI and returned as a list of meals with prices.
 Such lists of meals are added to ChromaDB where price and link to facebook is stored
-as metadata.
-That allows us easily to search for coresponding informaiton.
+as metadata. There is new vector database created for the day so the old one
+can be easily deleted with a crontab script.
+That allows us easily to search for corresponding information that's relevant only few hours.
+
+
+##### Example of a record from ChromaDB
+| metadatas | documents |
+------------------------ | --------------------------------|
+| {'price': '22 zł', 'url': 'https://www.facebook.com/element4wroclaw'} | Pierogi ruskie ( 7 sztuk ) z okrasą |
+---------------------------------------------------------------------------------------------------------------
 
 
 
