@@ -2,47 +2,54 @@
 Author: Ali Binkowska
 October 2023
 """
-import json
-import re
-import os
-import logging
-from datetime import timedelta
+from itertools import islice
+
 import numpy as np
 import tiktoken
 from dateutil import parser
 from dotenv import load_dotenv
 from joblib import dump, load
 from serpapi import GoogleSearch
-from itertools import islice
-from datetime import datetime
-from crawlbase import CrawlingAPI
-from typing import Optional, Tuple, Dict, Any
-from typing import List
-from pydantic import BaseModel, Field
 
-from langchain.vectorstores import Chroma
-from langchain.text_splitter import (
-    RecursiveCharacterTextSplitter,
-)
-from chromadb.errors import InvalidDimensionException
-from langchain.utils.openai_functions import convert_pydantic_to_openai_function
+load_dotenv()
+
 from langchain.output_parsers.openai_functions import JsonKeyOutputFunctionsParser
+from langchain.schema.document import Document
+
+from crawlbase import CrawlingAPI
+import json
+import re
+import os
+from datetime import timedelta
+
+load_dotenv()
+
+from class_utils import LocalResult, FBPost, LocalWithFB
+
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 
-from class_utils import (
-    LocalResult,
-    FBPost,
-    LocalWithFB
-)
-
-load_dotenv()
-
+import logging
 logging.basicConfig(
     level=logging.INFO, format="(%(levelname)s):  %(message)s"
 )
 log = logging.getLogger()
+
+from typing import Optional, Tuple, Dict, Any
+from datetime import datetime
+
+from langchain.vectorstores import Chroma
+
+from langchain.text_splitter import (
+    RecursiveCharacterTextSplitter,
+)
+
+from chromadb.errors import InvalidDimensionException
+
+from typing import List
+from pydantic import BaseModel, Field
+from langchain.utils.openai_functions import convert_pydantic_to_openai_function
 
 
 with open('config.yaml', 'rb') as f:
@@ -382,12 +389,13 @@ def db_create(db_pth: str, embedding, documents):
             persist_directory=db_pth,
         )
     except InvalidDimensionException:
-        Chroma().delete_collection()
-        db = Chroma.from_documents(
-            documents,
-            embedding=embedding,
-            persist_directory=db_pth,
-        )
+        # Chroma().delete_collection()
+        # db = Chroma.from_documents(
+        #     documents,
+        #     embedding=embedding,
+        #     persist_directory=db_pth,
+        # )
+        raise
     return db
 
 
@@ -395,6 +403,11 @@ def db_create(db_pth: str, embedding, documents):
 # SUPPORT FUNCTIONS ###
 # **************************
 
+def create_document(meal, price, url):
+    """Created Document() out of given data"""
+    page_content = meal
+    metadata = {'price': price, 'url': url}
+    return Document(page_content=page_content, metadata=metadata, type='Document')
 def count_tokens(model_name, text):
     """Count tokes for given model"""
     encoding = tiktoken.encoding_for_model(model_name)

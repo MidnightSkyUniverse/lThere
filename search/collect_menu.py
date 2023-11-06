@@ -22,6 +22,7 @@ from search.utils import (
     db_create,
     date_today,
     separate_posts,
+    create_document,
 )
 
 with open('config.yaml') as f:
@@ -33,13 +34,6 @@ logging.basicConfig(
 )
 log = logging.getLogger()
 
-
-from langchain.schema.document import Document
-
-def create_document(meal, price, url):
-    page_content = meal
-    metadata = {'price': price, 'url': url}
-    return Document(page_content=page_content, metadata=metadata)
 
 
 def collect():
@@ -93,6 +87,8 @@ def collect():
                             meal = meal_info['meal']
                             if meal_info['price']:
                                 price = meal_info['price']
+                            else:
+                                price = ""
 
                             document = create_document(meal, price, url)
                             documents.append(document)
@@ -100,12 +96,9 @@ def collect():
                 for x in documents:
                     log.info(x)
 
-                try:
+                if documents:
                     vector_db = db_create(vector_db_pth + date_today(), embedding, documents)
-                except:
-                    raise
-
-                log.info(("There are", vector_db._collection.count(), "in the collection"))
+                    log.info(("There are", vector_db._collection.count(), "in the collection"))
             else:
                 log.info("No recent posts were captured")
 
