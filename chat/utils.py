@@ -24,8 +24,6 @@ from langchain.retrievers.self_query.base import SelfQueryRetriever
 ###################
 # LangChain and LLM
 ###################
-def func():
-    pass
 
 def _embedding_function(model_name: str):
     """Initiate embedding function"""
